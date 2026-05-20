@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReNov MX | Espacio Ciudadano</title>
+    <style>
+        :root {
+            --navy: #0A192F;
+            --negro: #111111;
+            --gris-oscuro: #333333;
+            --gris-claro: #F4F6F9;
+            --gris-texto-claro: #E2E8F0;
+            --blanco: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--negro);
+            background-color: var(--gris-claro);
+        }
+        section {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h2 {
+            color: var(--navy);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--navy);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* Menú de Navegación */
+        header {
+            background-color: var(--navy);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        nav {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        .logo {
+            color: var(--gris-texto-claro);
+            font-weight: bold;
+            font-size: 1.4rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .logo:hover { color: var(--blanco); }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: var(--gris-texto-claro);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--blanco); }
+
+        /* Sección Inicio */
+        #inicio {
+            background: linear-gradient(rgba(10, 25, 47, 0.95), rgba(17, 17, 17, 0.95));
+            color: var(--gris-texto-claro);
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+        #inicio h1 { 
+            font-size: 3rem; 
+            margin-bottom: 10px;
+            color: var(--blanco);
+        }
+        #inicio p { font-size: 1.2rem; color: var(--gris-texto-claro); }
+
+        /* Cuadrícula de Tarjetas */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background: var(--blanco);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background-color: var(--navy);
+        }
+        .card-content { padding: 20px; flex-grow: 1; }
+        .card h3 { color: var(--navy); margin-bottom: 10px; }
+        
+        .btn-card {
+            display: inline-block;
+            margin-top: 15px;
+            background-color: var(--navy);
+            color: var(--blanco);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn-card:hover { background-color: var(--gris-oscuro); }
+
+        /* Formulario Seguro Local */
+        form {
+            background: var(--blanco);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            max-width: 600px;
+            margin: 20px auto 0 auto;
+        }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; }
+        .btn-form {
+            background-color: var(--navy);
+            color: var(--gris-texto-claro);
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
+        }
+        .btn-form:hover { background-color: var(--gris-oscuro); color: var(--blanco); }
+
+        /* Pie de página */
+        footer { 
+            background-color: var(--negro); 
+            color: var(--gris-texto-claro); 
+            text-align: center; 
+            padding: 30px 20px; 
+        }
+        .social-links { margin-bottom: 15px; }
+        .social-links a {
+            color: var(--gris-texto-claro);
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        .social-links a:hover { color: var(--blanco); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#inicio" class="logo">ReNov MX</a>
+            <ul class="nav-links">
+                <li><a href="#quienes-somos">¿Quiénes somos?</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#noticias">Noticias</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio">
+        <h1>ReNov MX</h1>
+        <p>Espacio Ciudadano para la Participación y el Cambio</p>
+    </section>
+
+    <section id="quienes-somos">
+        <h2>¿Quiénes somos?</h2>
+        <p>Somos una plataforma independiente creada por y para los ciudadanos. Buscamos promover el diálogo abierto, la transparencia y la construcción de propuestas comunitarias para mejorar nuestro entorno.</p>
+    </section>
+
+    <section id="blog">
+        <h2>Blog Ciudadano</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="blog1.jpg" alt="Voz vecinal" class="card-img">
+                <div class="card-content">
+                    <h3>La importancia de la voz vecinal</h3>
+                    <p>Opiniones y reflexiones sobre cómo la participación local transforma comunidades enteras.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="blog2.jpg" alt="Parque público" class="card-img">
+                <div class="card-content">
+                    <h3>Espacios públicos y su rescate</h3>
+                    <p>Propuestas ciudadanas para reactivar los parques y áreas comunes de nuestra zona.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="noticias">
+        <h2>Noticias</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="noticia1.jpg" alt="Cuadernillo Digital ReNov MX" class="card-img">
+                <div class="card-content">
+                    <h3>Cuadernillo Ciudadano ReNov MX</h3>
+                    <p>Consulta nuestra publicación digital e infórmate sobre las iniciativas y visiones de este espacio.</p>
+                    <a href="https://heyzine.com/flip-book/aa451d7317.html" target="_blank" class="btn-card">Leer publicación</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="noticia2.jpg" alt="Resultados" class="card-img">
+                <div class="card-content">
+                    <h3>Resultados de la Consulta</h3>
+                    <p>Ya están disponibles los datos recopilados en la última encuesta de prioridades locales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Contacto Corregida -->
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <p style="text-align: center; margin-bottom: 20px;">Escríbenos para sumarte, dejar una propuesta o resolver tus dudas.</p>
+        
+        <form onsubmit="enviarPorEmail(event)">
+            <div class="form-group">
+                <label for="nombre">Nombre Completo</label>
+                <input type="text" id="nombre" required placeholder="Tu nombre">
+            </div>
+            <div class="form-group">
+                <label for="correo">Correo Electrónico</label>
+                <input type="email" id="correo" required placeholder="tu@correo.com">
+            </div>
+            <div class="form-group">
+                <label for="mensaje">Tu Propuesta o Mensaje</label>
+                <textarea id="mensaje" rows="5" required placeholder="Escribe aquí..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn-form">Enviar Propuesta</button>
+        </form>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://x.com/RenovMex?s=20" target="_blank">Síguenos en X (Twitter)</a>
+        </div>
+        <p>&copy; 2026 ReNov MX - Espacio Ciudadano. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Script de redirección local segura -->
+    <script>
+        function enviarPorEmail(event) {
+            event.preventDefault();
+            
+            // REEMPLAZA AQUÍ tu dirección de correo electrónico real
+            const correoDestino = "grupo.cosur@gmail.com"; 
+            
+            const nombre = document.getElementById('nombre').value;
+            const correoCiudadano = document.getElementById('correo').value;
+            const mensaje = document.getElementById('mensaje').value;
+            
+            const asunto = encodeURIComponent("Nueva Propuesta Ciudadana - ReNov MX");
+            const cuerpo = encodeURIComponent("Nombre: " + nombre + "\nCorreo: " + correoCiudadano + "\n\nMensaje:\n" + mensaje);
+            
+            // Abre la aplicación Mail de Mac de forma segura sin pasar por servidores externos
+            window.location.href = "mailto:" + correoDestino + "?subject=" + asunto + "&body=" + cuerpo;
+        }
+    </script>
+
+</body>
+</html>
