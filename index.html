@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReNov MX | Espacio Ciudadano</title>
-    <!-- Iconos Font Awesome -->
-    <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         :root {
             --navy: #0A192F;
@@ -43,10 +41,13 @@
             background-color: var(--bg-principal);
             padding-top: 70px;
         }
+        
+        /* Contenedores Responsivos */
         section {
-            padding: 80px 20px;
+            padding: 60px 20px;
             max-width: 1000px;
             margin: 0 auto;
+            width: 100%;
         }
         h2 {
             color: var(--navy);
@@ -61,7 +62,7 @@
             border-bottom-color: #38bdf8;
         }
 
-        /* Menú de Navegación */
+        /* Menú de Navegación Adaptable */
         header {
             background-color: var(--navy);
             position: fixed;
@@ -87,6 +88,7 @@
         .logo-img {
             height: 45px;
             width: auto;
+            max-width: 100%;
             object-fit: contain;
         }
         
@@ -100,6 +102,7 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            font-size: 1rem;
         }
         .nav-links a:hover { color: var(--blanco); }
 
@@ -111,42 +114,45 @@
             color: var(--gris-texto-claro);
             font-size: 1.5rem;
             cursor: pointer;
+            padding: 5px;
         }
 
-        /* Sección Inicio con Banner de Fondo */
+        /* Sección Inicio Líquida con Banner Responsivo */
         #inicio {
             background: linear-gradient(rgba(10, 25, 47, 0.75), rgba(17, 17, 17, 0.85)), url('banner.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             color: var(--gris-texto-claro);
-            height: 60vh;
+            min-height: 50vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px;
+            padding: 40px 20px;
         }
         #inicio h1 { 
-            font-size: 3.5rem; 
+            font-size: clamp(2rem, 5vw, 3.5rem); 
             margin-bottom: 15px;
             color: var(--blanco);
             text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            line-height: 1.2;
         }
         #inicio p { 
-            font-size: 1.4rem; 
+            font-size: clamp(1rem, 3vw, 1.4rem);
             color: var(--gris-texto-claro);
             text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
             max-width: 600px;
         }
 
-        /* Cuadrícula de Tarjetas */
+        /* Cuadrícula Inteligente para Tarjetas */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            gap: 25px;
             margin-top: 20px;
+            width: 100%;
         }
         .card {
             background: var(--bg-tarjeta);
@@ -155,16 +161,31 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            width: 100%;
+        }
+        
+        /* Contenedor estricto para fijar y ajustar imágenes */
+        .card-img-wrapper {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background-color: var(--navy);
         }
         .card-img {
             width: 100%;
-            height: 180px;
-            object-fit: cover;
-            background-color: var(--navy);
+            height: 100%;
+            object-fit: cover; /* Recorta e integra la imagen local sin estirarla */
+            display: block;
         }
-        .card-content { padding: 20px; flex-grow: 1; }
-        .card h3 { color: var(--navy); margin-bottom: 10px; }
+        
+        .card-content { 
+            padding: 20px; 
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card h3 { color: var(--navy); margin-bottom: 10px; font-size: 1.25rem; }
         [data-theme="dark"] .card h3 { color: #38bdf8; }
         
         .btn-card {
@@ -173,31 +194,33 @@
             background-color: var(--navy);
             color: var(--blanco);
             text-decoration: none;
-            padding: 8px 16px;
+            padding: 10px 16px;
             border-radius: 4px;
             font-size: 0.9rem;
             font-weight: bold;
             transition: background 0.3s;
             text-align: center;
+            width: 100%;
         }
         .btn-card:hover { background-color: var(--gris-oscuro); }
         [data-theme="dark"] .btn-card { background-color: #38bdf8; color: var(--navy); }
         [data-theme="dark"] .btn-card:hover { background-color: #0284c7; color: var(--blanco); }
 
-        /* Formulario Seguro Local */
+        /* Formulario Seguro y Elástico */
         form {
             background: var(--bg-tarjeta);
-            padding: 30px;
+            padding: 30px 20px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             max-width: 600px;
             margin: 20px auto 0 auto;
+            width: 100%;
         }
         .form-group { margin-bottom: 15px; text-align: left; }
         label { display: block; margin-bottom: 5px; font-weight: bold; }
         input, textarea { 
             width: 100%; 
-            padding: 10px; 
+            padding: 12px; 
             border: 1px solid var(--borde-input); 
             border-radius: 4px; 
             font-size: 1rem;
@@ -208,7 +231,7 @@
             background-color: var(--navy);
             color: var(--gris-texto-claro);
             border: none;
-            padding: 12px 20px;
+            padding: 14px 20px;
             font-size: 1rem;
             cursor: pointer;
             border-radius: 4px;
@@ -220,25 +243,37 @@
         [data-theme="dark"] .btn-form { background-color: #38bdf8; color: var(--navy); }
         [data-theme="dark"] .btn-form:hover { background-color: #0284c7; color: var(--blanco); }
 
-        /* Pie de página */
+        /* Pie de página Limpio y sin Iconos caídos */
         footer { 
             background-color: var(--negro); 
             color: var(--gris-texto-claro); 
             text-align: center; 
-            padding: 30px 20px; 
+            padding: 40px 20px; 
+            width: 100%;
         }
-        .social-links { margin-bottom: 15px; }
+        .social-links { 
+            margin-bottom: 20px; 
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
         .social-links a {
             color: var(--gris-texto-claro);
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.5rem;
-            transition: color 0.3s, transform 0.3s;
-            display: inline-block;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 8px 16px;
+            border: 1px solid var(--gris-oscuro);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.05);
         }
         .social-links a:hover { 
             color: var(--blanco); 
-            transform: scale(1.2);
+            border-color: var(--blanco);
+            transform: translateY(-3px);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         /* Botón Flotante Modo Oscuro */
@@ -252,7 +287,8 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
+            font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             z-index: 2000;
@@ -265,11 +301,11 @@
             color: var(--negro);
         }
 
-        /* Responsivo / Celulares */
+        /* REGLAS RESPONSIVAS: Tablets y Celulares */
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
+            section { padding: 40px 20px; }
+            .menu-toggle { display: block; }
+            
             .nav-links {
                 display: none;
                 flex-direction: column;
@@ -281,12 +317,14 @@
                 padding: 20px;
                 box-shadow: 0 4px 10px rgba(0,0,0,0.2);
                 text-align: center;
+                gap: 15px;
             }
-            .nav-links.active {
-                display: flex;
+            .nav-links.active { display: flex; }
+            
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
-            #inicio h1 { font-size: 2.2rem; }
-            #inicio p { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -295,11 +333,10 @@
     <header>
         <nav>
             <a href="#inicio" class="logo-container">
-                <!-- Si tienes tu logo localmente se verá aquí. Si no, mostrará el texto alternativo -->
                 <img src="logotipo.png" alt="ReNov MX" class="logo-img">
             </a>
-            <button class="menu-toggle" id="mobile-menu">
-                <i class="fas fa-bars"></i>
+            <button class="menu-toggle" id="mobile-menu" aria-label="Abrir menú">
+                Menu
             </button>
             <ul class="nav-links" id="nav-list">
                 <li><a href="#quienes-somos">¿Quiénes somos?</a></li>
@@ -324,19 +361,25 @@
         <h2>Blog Ciudadano</h2>
         <div class="grid">
             <div class="card">
-                <!-- Imagen corregida: Personas trabajando juntas -->
-                <img src="https://picsum.photos" alt="Voz vecinal" class="card-img">
+                <div class="card-img-wrapper">
+                    <img src="blog1.jpg" alt="Voz vecinal" class="card-img">
+                </div>
                 <div class="card-content">
-                    <h3>La importancia de la voz vecinal</h3>
-                    <p>Opiniones y reflexiones sobre cómo la participación local transforma comunidades enteras.</p>
+                    <div>
+                        <h3>La importancia de la voz vecinal</h3>
+                        <p>Opiniones y reflexiones sobre cómo la participación local transforma comunidades enteras.</p>
+                    </div>
                 </div>
             </div>
             <div class="card">
-                <!-- Imagen corregida: Espacio abierto / Bosque o parque -->
-                <img src="https://picsum.photos" alt="Parque público" class="card-img">
+                <div class="card-img-wrapper">
+                    <img src="blog2.jpg" alt="Parque público" class="card-img">
+                </div>
                 <div class="card-content">
-                    <h3>Espacios públicos y su rescate</h3>
-                    <p>Propuestas ciudadanas para reactivar los parques y áreas comunes de nuestra zona.</p>
+                    <div>
+                        <h3>Espacios públicos y su rescate</h3>
+                        <p>Propuestas ciudadanas para reactivar los parques y áreas comunes de nuestra zona.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -346,20 +389,26 @@
         <h2>Noticias</h2>
         <div class="grid">
             <div class="card">
-                <!-- Imagen corregida: Alguien usando computadora (Representa Cuadernillo Digital) -->
-                <img src="https://picsum.photos" alt="Cuadernillo Digital ReNov MX" class="card-img">
+                <div class="card-img-wrapper">
+                    <img src="noticia1.jpg" alt="Cuadernillo Digital ReNov MX" class="card-img">
+                </div>
                 <div class="card-content">
-                    <h3>Cuadernillo Ciudadano ReNov MX</h3>
-                    <p>Consulta nuestra publicación digital e infórmate sobre las iniciativas y visiones de este espacio.</p>
+                    <div>
+                        <h3>Cuadernillo Ciudadano ReNov MX</h3>
+                        <p>Consulta nuestra publicación digital e infórmate sobre las iniciativas y visiones de este espacio.</p>
+                    </div>
                     <a href="https://heyzine.com/flip-book/aa451d7317.html" target="_blank" class="btn-card">Leer publicación</a>
                 </div>
             </div>
             <div class="card">
-                <!-- Imagen corregida: Estadísticas / Graficas de analítica (Representa Consulta) -->
-                <img src="https://picsum.photos" alt="Resultados" class="card-img">
+                <div class="card-img-wrapper">
+                    <img src="noticia2.jpg" alt="Resultados" class="card-img">
+                </div>
                 <div class="card-content">
-                    <h3>Resultados de la Consulta</h3>
-                    <p>Ya están disponibles los datos recopilados en la última encuesta sobre movilidad y seguridad.</p>
+                    <div>
+                        <h3>Resultados de la Consulta</h3>
+                        <p>Ya están disponibles los datos recopilados en la última encuesta sobre movilidad y seguridad.</p>
+                    </div>
                     <a href="#" class="btn-card">Ver resultados</a>
                 </div>
             </div>
@@ -387,16 +436,18 @@
     </section>
 
     <footer>
+        <!-- Enlaces directos en bloque a las redes sociales fijados en texto plano -->
         <div class="social-links">
-            <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://x.com/RenovMex?s=20" target="_blank" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-            <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://facebook.com" target="_blank">Facebook</a>
+            <a href="https://x.com/RenovMex?s=20" target="_blank">Twitter (X)</a>
+            <a href="https://instagram.com" target="_blank">Instagram</a>
         </div>
         <p>&copy; 2026 ReNov MX. Todos los derechos reservados.</p>
     </footer>
 
+    <!-- Botón flotante Modo Oscuro -->
     <button class="theme-switch" id="theme-btn" title="Cambiar modo">
-        <i class="fas fa-moon"></i>
+        Modo
     </button>
 
     <script>
@@ -414,16 +465,15 @@
         });
 
         const themeBtn = document.getElementById('theme-btn');
-        const themeIcon = themeBtn.querySelector('i');
 
         themeBtn.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             if (currentTheme === 'dark') {
                 document.documentElement.removeAttribute('data-theme');
-                themeIcon.className = 'fas fa-moon';
+                themeBtn.textContent = 'Modo';
             } else {
                 document.documentElement.setAttribute('data-theme', 'dark');
-                themeIcon.className = 'fas fa-sun';
+                themeBtn.textContent = 'Modo';
             }
         });
     </script>
