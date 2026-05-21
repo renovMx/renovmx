@@ -117,11 +117,11 @@
             padding: 5px;
         }
 
-        /* Sección Inicio Líquida con Banner Responsivo */
+        /* Sección Inicio con Adaptación Inteligente de Fondo */
         #inicio {
             background: linear-gradient(rgba(10, 25, 47, 0.75), rgba(17, 17, 17, 0.85)), url('banner.jpg');
-            background-size: cover;
-            background-position: center;
+            background-size: cover; /* Escala y rellena proporcionalmente toda la sección sin deformar */
+            background-position: center center; /* Mantiene el centro de tu banner siempre visible */
             background-repeat: no-repeat;
             color: var(--gris-texto-claro);
             min-height: 50vh;
@@ -130,7 +130,8 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
+            width: 100%;
         }
         #inicio h1 { 
             font-size: clamp(2rem, 5vw, 3.5rem); 
@@ -164,7 +165,7 @@
             width: 100%;
         }
         
-        /* Contenedor estricto para fijar y ajustar imágenes */
+        /* Contenedor estricto para fijar y ajustar imágenes en las tarjetas */
         .card-img-wrapper {
             width: 100%;
             aspect-ratio: 16 / 9;
@@ -174,7 +175,7 @@
         .card-img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Recorta e integra la imagen local sin estirarla */
+            object-fit: cover; /* Cambiado a cover para que las imágenes de tarjetas tampoco se deformen */
             display: block;
         }
         
@@ -243,7 +244,7 @@
         [data-theme="dark"] .btn-form { background-color: #38bdf8; color: var(--navy); }
         [data-theme="dark"] .btn-form:hover { background-color: #0284c7; color: var(--blanco); }
 
-        /* Pie de página Limpio y sin Iconos caídos */
+        /* Pie de página */
         footer { 
             background-color: var(--negro); 
             color: var(--gris-texto-claro); 
@@ -287,7 +288,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
@@ -301,7 +302,7 @@
             color: var(--negro);
         }
 
-        /* REGLAS RESPONSIVAS: Tablets y Celulares */
+        /* REGLAS RESPONSIVAS */
         @media (max-width: 768px) {
             section { padding: 40px 20px; }
             .menu-toggle { display: block; }
@@ -436,16 +437,14 @@
     </section>
 
     <footer>
-        <!-- Enlaces directos en bloque a las redes sociales fijados en texto plano -->
         <div class="social-links">
             <a href="https://facebook.com" target="_blank">Facebook</a>
-            <a href="https://x.com/RenovMex?s=20" target="_blank">Twitter (X)</a>
+            <a href="https://x.com/RenovMex?s=20"_blank">Twitter (X)</a>
             <a href="https://instagram.com" target="_blank">Instagram</a>
         </div>
         <p>&copy; 2026 ReNov MX. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Botón flotante Modo Oscuro -->
     <button class="theme-switch" id="theme-btn" title="Cambiar modo">
         Modo
     </button>
@@ -470,10 +469,8 @@
             const currentTheme = document.documentElement.getAttribute('data-theme');
             if (currentTheme === 'dark') {
                 document.documentElement.removeAttribute('data-theme');
-                themeBtn.textContent = 'Modo';
             } else {
                 document.documentElement.setAttribute('data-theme', 'dark');
-                themeBtn.textContent = 'Modo';
             }
         });
     </script>
