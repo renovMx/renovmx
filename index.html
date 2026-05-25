@@ -599,27 +599,66 @@
             <a href="https://instagram.com" target="_blank">Instagram</a>
         </div>
         <p>&copy; 2026 ReNov MX. Todos los derechos reservados.</p>
-           <!-- CONTADOR DE VISITAS -->
+        
+        <!-- CONTADOR DE VISITANTES REDISEÑADO INTEGRADO AL FOOTER -->
+        <div style="font-family: Arial, sans-serif; text-align: center; margin-top: 20px; font-size: 0.95rem; color: var(--gris-texto-claro);">
+            <p><i class="fas fa-eye" style="margin-right: 8px; color: var(--enlace-color);"></i> Visitantes totales: <span id="visitor-count" style="font-weight: bold; color: var(--blanco);">Cargando...</span></p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN MODAL MODOS -->
+    <button class="theme-switch" id="theme-btn" title="Cambiar modo">
+        Modo
+    </button>
+
+    <!-- CONTROLADORES JAVASCRIPT -->
     <script>
-        // ID único generado para tu repositorio en GitHub
-        const ID_UNICO = "renovmx-sitio"; 
+        const menuToggle = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
 
-        fetch(`https://counterapi.dev{ID_UNICO}/views/up`)
-            .then(response => {
-                if (!response.ok) throw new Error('Error en la respuesta del servidor');
-                return response.json();
-            })
-            .then(data => {
-                // Actualiza el número en tu pantalla
-                document.getElementById('visitor-count').innerText = data.count;
-            })
-            .catch(error => {
-                // Si falla la conexión, muestra un 1 por seguridad
-                document.getElementById('visitor-count').innerText = "1";
-                console.error('Error al cargar el contador:', error);
+        menuToggle.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
             });
-    </script>
+        });
 
+        const themeBtn = document.getElementById('theme-btn');
+
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        });
+        // LLAMADA SEGURA AL SERVIDOR DE CONTEO ACTIVO (COUNTERAPI)
+// Nota: Cambia '"renovmx-sitio"' por el nombre de tu proyecto
+fetch('https://counterapi.dev')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('visitor-count').innerText = data.count;
+    })
+    .catch(error => {
+        document.getElementById('visitor-count').innerText = "1";
+        console.error('Error al cargar el contador:', error);
+    });
+        <script>
+    // Incrementa +1 en el servidor con cada visita
+    fetch('https://counterapi.dev')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('visitor-count').innerText = data.count;
+        })
+        .catch(error => {
+            document.getElementById('visitor-count').innerText = "1";
+            console.error('Error al cargar el contador:', error);
+        });
+</script>
     </script>
         <!-- ENLACE Y ACTIVACIÓN DE LA APLICACIÓN MÓVIL (PWA) CORREGIDO -->
     <link rel="manifest" href="manifest.json">
