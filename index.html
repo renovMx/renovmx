@@ -480,11 +480,19 @@
 </div>
 
 <script>
-    function cb(response) {
-        document.getElementById('visitor-count').innerText = response.value;
-    }
+    // Conectamos con un servidor de conteo activo y seguro
+    fetch('https://counterapi.dev')
+        .then(response => response.json())
+        .then(data => {
+            // Reemplaza el texto "Cargando..." con el número real recibido
+            document.getElementById('visitor-count').innerText = data.count;
+        })
+        .catch(error => {
+            // En caso de cualquier falla de red, muestra un número inicial
+            document.getElementById('visitor-count').innerText = "1";
+            console.error('Error al cargar el contador:', error);
+        });
 </script>
-<script async src="https://countapi.xyz"></script>
 </body>
 </html>
 
