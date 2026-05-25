@@ -648,14 +648,15 @@
                 console.error('Error al cargar el contador:', error);
             });
     </script>
-    <!-- ENLACE Y ACTIVACIÓN DE LA APLICACIÓN MÓVIL (PWA) -->
+        <!-- ENLACE Y ACTIVACIÓN DE LA APLICACIÓN MÓVIL (PWA) CORREGIDO -->
     <link rel="manifest" href="manifest.json">
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
+            // Le indicamos explícitamente al navegador la ruta de tu subcarpeta en GitHub
+            navigator.serviceWorker.register('/renovmx/sw.js', { scope: '/renovmx/' })
                 .then(() => console.log('Aplicación ReNov MX lista para instalar.'))
                 .catch(err => console.error('Error al registrar la app:', err));
         }
-    </script>                
+    </script>         
 </body>
 </html>
