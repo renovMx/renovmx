@@ -493,6 +493,146 @@
             console.error('Error al cargar el contador:', error);
         });
 </script>
+<!-- ================================================================= -->
+<!-- SECCIÓN DE ARTÍCULOS Y REVISTAS DIGITALES - RENOV_MX              -->
+<!-- ================================================================= -->
+
+<!-- 1. Librería de iconos Font Awesome (Sección segura) -->
+<link rel="stylesheet" href="https://cloudflare.com">
+
+<!-- 2. Estilos Visuales (CSS) -->
+<style>
+.contenedor-articulos {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: Arial, sans-serif;
+}
+.titulo-seccion {
+    color: #333;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+}
+.lista-articulos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.tarjeta-articulo {
+    display: flex;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.tarjeta-articulo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.imagen-revista img {
+    width: 130px;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.contenido-articulo {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.categoria {
+    font-size: 0.8rem;
+    color: #007BFF;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.contenido-articulo h3 {
+    margin: 0 0 10px 0;
+    color: #222;
+    font-size: 1.4rem;
+}
+.contenido-articulo p {
+    margin: 0 0 15px 0;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+.boton-leer {
+    align-self: flex-start;
+    background: #007BFF;
+    color: white !important;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    transition: background 0.2s;
+}
+.boton-leer:hover {
+    background: #0056b3;
+}
+
+/* Diseño responsivo para teléfonos celulares */
+@media (max-width: 600px) {
+    .tarjeta-articulo {
+        flex-direction: column;
+    }
+    .imagen-revista img {
+        width: 100%;
+        height: 200px;
+    }
+}
+</style>
+
+<!-- 3. Estructura de Contenido (HTML) -->
+<section class="contenedor-articulos">
+    <h2 class="titulo-seccion">Revistas Digitales y Artículos</h2>
+    
+    <div class="lista-articulos">
+        
+        <!-- Publicación 1 -->
+        <article class="tarjeta-articulo">
+            <div class="imagen-revista">
+                <!-- Imagen temporal: cámbiala por la portada de tu documento -->
+                <img src="https://placeholder.com" alt="Portada de Publicación">
+            </div>
+            <div class="contenido-articulo">
+                <span class="categoria">Edición Reciente</span>
+                <h3>Título de la Primera Publicación</h3>
+                <p>Escribe aquí una breve descripción sobre el análisis, propuesta ciudadana o contenido de esta edición especial.</p>
+                <!-- Recuerda cambiar la URL del href por tu enlace externo de Drive, Issuu, etc. -->
+                <a href="https://tu-enlace-externo-aqui.com" class="boton-leer" target="_blank">
+                    Ver Publicación <i class="fas fa-external-link-alt" style="margin-left: 8px; font-size: 0.85rem;"></i>
+                </a>
+            </div>
+        </article>
+
+        <!-- Publicación 2 -->
+        <article class="tarjeta-articulo">
+            <div class="imagen-revista">
+                <img src="https://placeholder.com" alt="Portada de Publicación">
+            </div>
+            <div class="contenido-articulo">
+                <span class="categoria">Artículos de Opinión</span>
+                <h3>Título del Segundo Artículo</h3>
+                <p>Inserta un resumen atractivo que invite a la lectura de tus documentos o colaboraciones externas.</p>
+                <a href="https://tu-enlace-externo-aqui.com" class="boton-leer" target="_blank">
+                    Ver Publicación <i class="fas fa-external-link-alt" style="margin-left: 8px; font-size: 0.85rem;"></i>
+                </a>
+            </div>
+        </article>
+
+    </div>
+</section>
+<!-- ================================================================= -->
 </body>
 </html>
 
