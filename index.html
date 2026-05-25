@@ -636,17 +636,29 @@
                 document.documentElement.setAttribute('data-theme', 'dark');
             }
         });
-
         // LLAMADA SEGURA AL SERVIDOR DE CONTEO ACTIVO (COUNTERAPI)
-        fetch('https://counterapi.dev')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('visitor-count').innerText = data.count;
-            })
-            .catch(error => {
-                document.getElementById('visitor-count').innerText = "1";
-                console.error('Error al cargar el contador:', error);
-            });
+// Nota: Cambia 'https://renovmx.github.io/renovmx/' por el nombre de tu proyecto
+fetch('https://counterapi.dev')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('visitor-count').innerText = data.count;
+    })
+    .catch(error => {
+        document.getElementById('visitor-count').innerText = "1";
+        console.error('Error al cargar el contador:', error);
+    });
+        <script>
+    // Incrementa +1 en el servidor con cada visita
+    fetch('https://counterapi.dev')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('visitor-count').innerText = data.count;
+        })
+        .catch(error => {
+            document.getElementById('visitor-count').innerText = "1";
+            console.error('Error al cargar el contador:', error);
+        });
+</script>
     </script>
         <!-- ENLACE Y ACTIVACIÓN DE LA APLICACIÓN MÓVIL (PWA) CORREGIDO -->
     <link rel="manifest" href="manifest.json">
