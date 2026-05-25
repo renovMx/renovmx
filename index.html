@@ -475,7 +475,18 @@
             }
         });
     </script>
+<div style="font-family: Arial, sans-serif; text-align: center; margin-top: 20px; color: #555;">
+    <p>Visitantes totales: <span id="visitor-count" style="font-weight: bold; color: #007BFF;">Cargando...</span></p>
+</div>
+
+<script>
+    function cb(response) {
+        document.getElementById('visitor-count').innerText = response.value;
+    }
+</script>
+<script async src="https://countapi.xyz"></script>
 </body>
 </html>
-<img src="https://seeyoufarm.com" alt="Contador de visitas">
+
+
 
