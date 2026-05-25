@@ -1,6 +1,6 @@
 const CACHE_NAME = 'renovmx-v1';
 const ASSETS = [
-  'https://github.io',
+  'https://renovmx.github.io/renovmx/',
   'index.html',
   'logotipo.png'
 ];
