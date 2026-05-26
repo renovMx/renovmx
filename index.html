@@ -636,24 +636,25 @@
                 document.documentElement.setAttribute('data-theme', 'dark');
             }
         });
-                // LLAMADA SEGURA AL SERVIDOR DE CONTEO ACTIVO (COUNTERAPI)
-        // Se utiliza encodeURIComponent para procesar el carácter especial del espacio de trabajo "renovMx's Workspace"
-        const workspace = encodeURIComponent("renovMx's Workspace");
-        const counterName = "visitas-totales"; // Puedes cambiar este nombre por el que prefieras
+                        // LLAMADA SEGURA AL SERVIDOR DE CONTEO ACTIVO (COUNTERAPI)
+        // Usamos tu nuevo Workspace limpio 'renovmx' y la API V2 oficial
+        const workspace = "renovmx";
+        const counterName = "visitas-totales"; 
 
         fetch(`https://counterapi.dev{workspace}/${counterName}/up`)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`Error del servidor: ${response.status}`);
+                    throw new Error(`Error en el servidor: ${response.status}`);
                 }
                 return response.json();
             })
             .then(data => {
-                // CounterAPI V2 devuelve el número dentro de la propiedad .value
+                // Asigna las visitas reales obtenidas de la base de datos de CounterAPI
                 document.getElementById('visitor-count').innerText = data.value;
             })
             .catch(error => {
-                document.getElementById('visitor-count').innerText = "1";
+                // Mensaje de respaldo por si falla la conexión de red externa
+                document.getElementById('visitor-count').innerText = "Cargando...";
                 console.error('Error al cargar el contador:', error);
             });
     </script>
