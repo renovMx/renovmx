@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+html<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -295,6 +295,11 @@
         .boton-leer:hover {
             background: var(--gris-oscuro);
         }
+                /* Ajuste para que el texto de los artículos se lea claro en modo oscuro */
+        [data-theme="dark"] .contenido-articulo p {
+            opacity: 1;
+            color: #e2e8f0;
+        }
         [data-theme="dark"] .boton-leer {
             background-color: #38bdf8;
             color: var(--navy) !important;
@@ -440,7 +445,7 @@
                 <img src="logotipo.png" alt="ReNov MX" class="logo-img">
             </a>
             <button class="menu-toggle" id="mobile-menu" aria-label="Abrir menú">
-                Menu
+                <i class="fas fa-bars"></i>
             </button>
             <ul class="nav-links" id="nav-list">
                 <li><a href="#quienes-somos">¿Quiénes somos?</a></li>
@@ -556,8 +561,7 @@
                     </a>
                 </div>
             </article>
-        </div>
-    </section>
+        
             <!-- Publicación 3 -->
             <article class="tarjeta-articulo">
                 <div class="portada-revista-css" style="background: linear-gradient(135deg, #10B981, #047857);">
@@ -658,20 +662,20 @@
                 // Asigna las visitas reales obtenidas de la base de datos de CounterAPI
                 document.getElementById('visitor-count').innerText = data.value;
             })
-            .catch(error => {
-                // Mensaje de respaldo por si falla la conexión de red externa
-                document.getElementById('visitor-count').innerText = "Cargando...";
+                        .catch(error => {
+                document.getElementById('visitor-count').innerText = "Error al cargar";
                 console.error('Error al cargar el contador:', error);
             });
     </script>
-        <!-- ENLACE Y ACTIVACIÓN DE LA APLICACIÓN MÓVIL (PWA) CORREGIDO -->
-    <link rel="manifest" href="manifest.json">
+
+    <!-- ACTIVACIÓN DE LA APLICACIÓN MÓVIL (PWA) -->
     <script>
         if ('serviceWorker' in navigator) {
-            // Le indicamos explícitamente al navegador la ruta de tu subcarpeta en GitHub
-            navigator.serviceWorker.register('/renovmx/sw.js', { scope: '/renovmx/' })
-                .then(() => console.log('Aplicación ReNov MX lista para instalar.'))
-                .catch(err => console.error('Error al registrar la app:', err));
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/renovmx/sw.js', { scope: '/renovmx/' })
+                    .then(reg => console.log('Aplicación ReNov MX lista para instalar. Alcance:', reg.scope))
+                    .catch(err => console.error('Error al registrar la app:', err));
+            });
         }
     </script>         
 </body>
