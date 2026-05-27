@@ -684,42 +684,21 @@ fetch(`https://counterapi.dev{workspace}/${counterName}/up`)
                 .catch(err => console.error('Error al registrar la app:', err));
         }
     </script>  
-    <!-- REPRODUCTOR DE JAZZ EN VIVO (VERIFICADO HTTPS) -->
-<div id="contenedor-jazz" style="position: fixed; bottom: 20px; right: 20px; background: #1a1a1a; color: #ffffff; padding: 15px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 9999; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; width: 250px; border: 1px solid #333;">
+    <!-- REPRODUCTOR DE JAZZ GLOBAL REPARADO -->
+<div style="position: fixed; bottom: 20px; right: 20px; background: #151515; color: #ffffff; padding: 14px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.6); z-index: 9999; font-family: system-ui, -apple-system, sans-serif; width: 240px; border: 1px solid #2e2e2e;">
     <p style="margin: 0 0 10px 0; font-size: 13px; font-weight: bold; color: #ffb74d; display: flex; align-items: center; gap: 6px;">
-        <span>🎷</span> <span id="radio-status">Jazz24 en Vivo</span>
+        <span>🎷</span> Smooth Jazz Global
     </p>
     
-    <audio id="reproductor-jazz" controls style="width: 100%; height: 32px; filter: invert(90%) hue-rotate(180deg);">
-        <source src="https://wostreaming.net" type="audio/mpeg">
+    <audio id="radio-smooth-jazz" controls style="width: 100%; height: 32px; filter: invert(90%) hue-rotate(180deg);">
+        <source src="https://smoothjazz.cdnstream1.com/2585_128.mp3" type="audio/mpeg">
         Tu navegador no soporta audio HTML5.
     </audio>
-
-    <p id="audio-error-msg" style="margin: 8px 0 0 0; font-size: 11px; color: #ef5350; display: none; line-height: 1.3;">
-        ⚠️ Haz clic en cualquier parte de la página primero y luego presiona Play (Bloqueo de seguridad del navegador).
-    </p>
 </div>
 
 <script>
-    const audioJazz = document.getElementById('reproductor-jazz');
-    const msgError = document.getElementById('audio-error-msg');
-    const statusRadio = document.getElementById('radio-status');
-
-    // Nivelar volumen de fondo suave al 35%
-    audioJazz.volume = 0.35;
-
-    // Monitorear si el stream genera error al dar play
-    audioJazz.addEventListener('error', function() {
-        statusRadio.innerText = "Error de conexión";
-        msgError.style.display = "block";
-        msgError.innerText = "No se pudo cargar el flujo de streaming de la radio.";
-    });
-
-    // Validar políticas de autoplay del navegador
-    audioJazz.addEventListener('play', function() {
-        msgError.style.display = "none";
-        statusRadio.innerText = "Reproduciendo Jazz...";
-    });
+    // Asigna un volumen moderado de fondo automáticamente al cargar
+    document.getElementById('radio-smooth-jazz').volume = 0.35;
 </script>
 </body>
 </html>
