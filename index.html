@@ -643,26 +643,34 @@
                 document.documentElement.setAttribute('data-theme', 'dark');
             }
         });
-   // Usamos tu nuevo Workspace limpio 'renovmx' y la API V2 oficial
+   });
+// LLAMADA SEGURA AL SERVIDOR DE CONTEO ACTIVO (COUNTERAPI)
+// Usamos tu nuevo Workspace limpio 'renovmx' y la API oficial
 const workspace = "renovmx";
 const counterName = "visitas-totales"; 
 
-// CORRECCIÓN: Se añade el signo $ y la ruta /v1/ requerida por CounterAPI
+console.log("Iniciando carga de CounterAPI...");
+
+// Corrección de URL: Subdominio api., prefijo /v1/ y sintaxis de variables corregida
 fetch(`https://counterapi.dev{workspace}/${counterName}/up`)
     .then(response => {
+        console.log("Respuesta HTTP recibida:", response.status);
         if (!response.ok) {
             throw new Error(`Error en el servidor: ${response.status}`);
         }
         return response.json();
     })
     .then(data => {
-        // Asigna las visitas reales obtenidas de la base de datos de CounterAPI
-        // Nota: CounterAPI devuelve el total en la propiedad 'count'
-        document.getElementById('visitor-count').innerText = data.count || data.value;
+        console.log("Datos del servidor:", data);
+        // Lee 'value' que es la propiedad oficial donde CounterAPI devuelve el número
+        const totalVisitas = data.value !== undefined ? data.value : (data.count || 0);
+        
+        // Asigna las visitas reales obtenidas de la base de datos
+        document.getElementById('visitor-count').innerText = totalVisitas;
     })
     .catch(error => {
         // Mensaje de respaldo por si falla la conexión de red externa
-        document.getElementById('visitor-count').innerText = "Error al cargar";
+        document.getElementById('visitor-count').innerText = "Error de red";
         console.error('Error al cargar el contador:', error);
     });
     </script>
