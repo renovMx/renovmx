@@ -684,44 +684,53 @@ fetch(`https://counterapi.dev{workspace}/${counterName}/up`)
                 .catch(err => console.error('Error al registrar la app:', err));
         }
     </script>  
-    <!-- REPRODUCTOR DE JAZZ MINIMALISTA CON BOTÓN OCULTAR/MOSTRAR -->
-<div id="contenedor-radio" style="position: fixed; bottom: 20px; right: 20px; background: #1a1a1a; color: #ffffff; padding: 12px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.6); z-index: 9999; font-family: system-ui, -apple-system, sans-serif; width: 230px; border: 1px solid #2a2a2a; transition: all 0.3s ease;">
+   <!-- REPRODUCTOR DE JAZZ DESLIZABLE (100% OPERATIVO) -->
+<div id="contenedor-radio" style="position: fixed; bottom: 20px; right: 20px; background: #1a1a1a; color: #ffffff; padding: 12px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.6); z-index: 9999; font-family: system-ui, -apple-system, sans-serif; width: 230px; border: 1px solid #2a2a2a; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease; transform: translateY(0); opacity: 1;">
     
-    <!-- Encabezado con título y botón de cerrar -->
+    <!-- Encabezado con título y botón de minimizar -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <span style="font-size: 12px; font-weight: 600; color: #ffb74d; display: flex; align-items: center; gap: 5px;">
             <span>🎷</span> Smooth Jazz
         </span>
-        <button onclick="alternarRadio()" style="background: none; border: none; color: #888; cursor: pointer; font-size: 14px; padding: 0 4px; line-height: 1;">✕</button>
+        <button onclick="ocultarRadio()" style="background: none; border: none; color: #888; cursor: pointer; font-size: 14px; padding: 0 4px; line-height: 1;">✕</button>
     </div>
     
-    <!-- Controles de Audio nativos comprimidos -->
+    <!-- Controles de Audio nativos -->
     <audio id="radio-smooth-jazz" controls style="width: 100%; height: 30px; filter: invert(90%) hue-rotate(180deg);">
         <source src="https://cdnstream1.com" type="audio/mpeg">
     </audio>
 </div>
 
-<!-- Botón flotante para volver a abrir la radio si se ocultó -->
-<button id="btn-abrir-radio" onclick="alternarRadio()" style="position: fixed; bottom: 20px; right: 20px; background: #1a1a1a; color: #ffb74d; border: 1px solid #2a2a2a; padding: 10px 14px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); z-index: 9998; font-family: system-ui, sans-serif; font-size: 13px; font-weight: bold; cursor: pointer; display: none; align-items: center; gap: 6px; transition: all 0.2s ease;">
+<!-- Botón flotante para restaurar el reproductor -->
+<button id="btn-abrir-radio" onclick="mostrarRadio()" style="position: fixed; bottom: -60px; right: 20px; background: #1a1a1a; color: #ffb74d; border: 1px solid #2a2a2a; padding: 10px 14px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); z-index: 9998; font-family: system-ui, sans-serif; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); opacity: 0;">
     <span>🎷</span> Música de fondo
 </button>
 
 <script>
-    // Asigna volumen moderado automáticamente
+    // Asigna volumen moderado automáticamente al cargar
     document.getElementById('radio-smooth-jazz').volume = 0.35;
 
-    // Función para ocultar y mostrar la radio
-    function alternarRadio() {
-        const contenedor = document.getElementById('contenedor-radio');
-        const btnAbrir = document.getElementById('btn-abrir-radio');
+    const contenedor = document.getElementById('contenedor-radio');
+    const btnAbrir = document.getElementById('btn-abrir-radio');
+
+    function ocultarRadio() {
+        // Desplaza el contenedor principal hacia abajo (fuera de la pantalla) y baja su opacidad
+        contenedor.style.transform = 'translateY(150%)';
+        contenedor.style.opacity = '0';
         
-        if (contenedor.style.display === 'none') {
-            contenedor.style.display = 'block';
-            btnAbrir.style.display = 'none';
-        } else {
-            contenedor.style.display = 'none';
-            btnAbrir.style.display = 'flex';
-        }
+        // Hace aparecer el botón flotante subiéndolo a su posición visible
+        btnAbrir.style.bottom = '20px';
+        btnAbrir.style.opacity = '1';
+    }
+
+    function mostrarRadio() {
+        // Regresa el contenedor principal a su lugar original
+        contenedor.style.transform = 'translateY(0)';
+        contenedor.style.opacity = '1';
+        
+        // Esconde de nuevo el botón flotante empujándolo hacia abajo
+        btnAbrir.style.bottom = '-60px';
+        btnAbrir.style.opacity = '0';
     }
 </script>
 </body>
