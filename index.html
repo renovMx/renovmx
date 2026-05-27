@@ -683,6 +683,16 @@ fetch(`https://counterapi.dev{workspace}/${counterName}/up`)
                 .then(() => console.log('Aplicación ReNov MX lista para instalar.'))
                 .catch(err => console.error('Error al registrar la app:', err));
         }
-    </script>         
+    </script>  
+    <!-- REPRODUCTOR DE JAZZ DE FONDO -->
+<div style="position: fixed; bottom: 20px; right: 20px; background: #222; color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 9999; font-family: sans-serif;">
+    <p style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">🎵 Jazz de Fondo</p>
+    <audio id="radio-jazz" controls style="height: 30px; width: 220px;">
+        <source src="https://somafm.com" type="audio/mpeg">
+    </audio>
+    <script>
+        document.getElementById('radio-jazz').volume = 0.3; // Volumen bajo de fondo
+    </script>
+</div>
 </body>
 </html>
