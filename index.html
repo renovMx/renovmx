@@ -644,26 +644,27 @@
             }
         });
                         // LLAMADA SEGURA AL SERVIDOR DE CONTEO ACTIVO (COUNTERAPI)
-        // Usamos tu nuevo Workspace limpio 'renovmx' y la API V2 oficial
-        const workspace = "renovmx";
-        const counterName = "visitas-totales"; 
+// Usamos tu nuevo Workspace limpio 'renovmx' y la API V2 oficial
+const workspace = "renovmx";
+const counterName = "visitas-totales"; 
 
-        fetch(`https://counterapi.dev{workspace}/${counterName}/up`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Error en el servidor: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Asigna las visitas reales obtenidas de la base de datos de CounterAPI
-                document.getElementById('visitor-count').innerText = data.value;
-            })
-            .catch(error => {
-                // Mensaje de respaldo por si falla la conexión de red externa
-                document.getElementById('visitor-count').innerText = "Cargando...";
-                console.error('Error al cargar el contador:', error);
-            });
+// Se añade /api/v1/ (o la ruta correspondiente) y las barras diagonales correctas
+fetch(`https://counterapi.dev{workspace}/${counterName}/up`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error en el servidor: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Asigna las visitas reales obtenidas de la base de datos de CounterAPI
+        document.getElementById('visitor-count').innerText = data.value;
+    })
+    .catch(error => {
+        // Mensaje de respaldo por si falla la conexión de red externa
+        document.getElementById('visitor-count').innerText = "Error al cargar";
+        console.error('Error al cargar el contador:', error);
+    });
     </script>
         <!-- ENLACE Y ACTIVACIÓN DE LA APLICACIÓN MÓVIL (PWA) CORREGIDO -->
     <link rel="manifest" href="manifest.json">
