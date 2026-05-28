@@ -614,37 +614,46 @@
         </div>
     </footer>
 
-    <!-- BOTÓN MODAL MODOS -->
-    <button class="theme-switch" id="theme-btn" title="Cambiar modo">
-        Modo
-    </button>
-
-    <!-- CONTROLADORES JAVASCRIPT -->
+        <!-- CONTROLADORES JAVASCRIPT CORREGIDOS -->
     <script>
         const menuToggle = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
 
-        menuToggle.addEventListener('click', () => {
-            navList.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navList.classList.remove('active');
+        // Abre y cierra el menú móvil
+        if (menuToggle && navList) {
+            menuToggle.addEventListener('click', () => {
+                navList.classList.toggle('active');
             });
-        });
 
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navList.classList.remove('active');
+                });
+            });
+        }
+
+        // Lógica del Modo Oscuro
         const themeBtn = document.getElementById('theme-btn');
 
-        themeBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            if (currentTheme === 'dark') {
-                document.documentElement.removeAttribute('data-theme');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        });
-   });
+        // 1. Al cargar la página, recuerda si ya estaba activo el modo oscuro
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+
+        // 2. Escucha el clic en el botón para cambiar el modo
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light'); // Guarda preferencia
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark'); // Guarda preferencia
+                }
+            });
+        }
+    </script>
 // LLAMADA SEGURA AL SERVIDOR DE CONTEO ACTIVO (COUNTERAPI)
 // Usamos tu nuevo Workspace limpio 'renovmx' y la API oficial
 const workspace = "renovmx";
