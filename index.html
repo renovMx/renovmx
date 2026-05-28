@@ -618,13 +618,16 @@
         </div>
     </footer>
 
-<!-- BOTÓN FLOTANTE MODO OSCURO CON TEXTO -->
-<button class="theme-switch" id="theme-toggle" style="width: auto; padding: 0 15px; border-radius: 30px; gap: 8px;">
-    <span id="theme-icon" style="font-size: 1.1rem;">🌙</span>
-    <span id="theme-text" style="font-size: 0.85rem; font-family: sans-serif;">Modo Oscuro</span>
+<!-- BOTÓN FLOTANTE INTELIGENTE CORREGIDO -->
+<button class="theme-switch" id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 2000; background-color: #0b192f; color: #fff; border: none; display: flex; align-items: center; justify-content: center; height: 48px; width: 48px; padding: 0; border-radius: 50%; gap: 0; overflow: hidden; white-space: nowrap; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer;">
+    <div style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 0 14px; gap: 8px;">
+        <span id="theme-icon" style="font-size: 1.1rem; flex-shrink: 0;">🌙</span>
+        <span id="theme-text" style="font-size: 0.85rem; font-family: sans-serif; opacity: 0; max-width: 0; transition: all 0.3s ease;">Modo Oscuro</span>
+    </div>
 </button>
-    
+
 <script>
+
     // 1. LÓGICA DEL CONTADOR DE VISITAS
     const workspace = "renovmx";
     const counterName = "visitas-totales"; 
@@ -645,33 +648,69 @@
             console.error('Error al cargar el contador:', error);
         });
 
-    // 2. LÓGICA DEL MODO OSCURO
+    // 2. LÓGICA DEL MODO OSCURO (INTELIGENTE - SE OCULTA SOLO)
     const themeToggleBtn = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
+    const themeText = document.getElementById('theme-text');
+    let hideTimeout;
 
-    // Revisar si el usuario ya tenía el modo oscuro activado antes
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme) {
-        document.documentElement.setAttribute('data-theme', currentTheme);
-        if (currentTheme === 'dark') {
-            themeIcon.className = 'fas fa-sun';
-        }
+    function expandButton() {
+        clearTimeout(hideTimeout);
+        themeToggleBtn.style.borderRadius = "30px";
+        themeToggleBtn.style.width = "auto";
+        themeText.style.opacity = "1";
+        themeText.style.maxWidth = "100px";
     }
 
-    // Escuchar el clic en el botón flotante para cambiar el color
+    function collapseButton() {
+        themeText.style.opacity = "0";
+        themeText.style.maxWidth = "0";
+        setTimeout(() => {
+            themeToggleBtn.style.width = "48px";
+            themeToggleBtn.style.borderRadius = "50%";
+        }, 150);
+    }
+
+    function startHideTimer() {
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(collapseButton, 3000);
+    }
+
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.innerText = '☀️';
+        themeText.innerText = 'Modo Claro';
+    } else {
+        themeIcon.innerText = '🌙';
+        themeText.innerText = 'Modo Oscuro';
+    }
+
+    expandButton();
+    startHideTimer();
+
+    themeToggleBtn.addEventListener('mouseenter', expandButton);
+    themeToggleBtn.addEventListener('mouseleave', startHideTimer);
+    themeToggleBtn.addEventListener('touchstart', expandButton);
+
     themeToggleBtn.addEventListener('click', () => {
         let theme = 'light';
         if (document.documentElement.getAttribute('data-theme') !== 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
-            themeIcon.className = 'fas fa-sun';
+            themeIcon.innerText = '☀️';
+            themeText.innerText = 'Modo Claro';
             theme = 'dark';
         } else {
             document.documentElement.removeAttribute('data-theme');
-            themeIcon.className = 'fas fa-moon';
+            themeIcon.innerText = '🌙';
+            themeText.innerText = 'Modo Oscuro';
         }
         localStorage.setItem('theme', theme);
+        expandButton();
+        startHideTimer();
     });
 </script>
+
 
         <!-- ENLACE Y ACTIVACIÓN DE LA APLICACIÓN MÓVIL (PWA) CORREGIDO -->
     <link rel="manifest" href="manifest.json">
