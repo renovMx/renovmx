@@ -628,25 +628,28 @@
 
 <script>
 
-    // 1. LÓGICA DEL CONTADOR DE VISITAS
-    const workspace = "renovmx";
-    const counterName = "visitas-totales"; 
+       <!-- Carga de librería externa oficial de CounterAPI -->
+    <script src="https://jsdelivr.net"></script>
 
-    console.log("Iniciando carga de CounterAPI...");
+    <script>
+    console.log("Iniciando carga oficial de CounterAPI...");
 
-    fetch(`https://counterapi.dev{workspace}/${counterName}/up`)
-        .then(response => {
-            if (!response.ok) throw new Error(`Error: ${response.status}`);
-            return response.json();
-        })
-        .then(data => {
-            const totalVisitas = data.value !== undefined ? data.value : (data.count || 0);
-            document.getElementById('visitor-count').innerText = totalVisitas;
-        })
-        .catch(error => {
-            document.getElementById('visitor-count').innerText = "Error de red";
-            console.error('Error al cargar el contador:', error);
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inicializa la API con tu workspace original
+        const counter = new Counter({ workspace: 'renovmx' });
+        const counterElement = document.getElementById('visitor-count');
+        
+        // Incrementa tu contador específico y actualiza la pantalla
+        counter.up('visitas-totales')
+          .then(result => {
+            counterElement.textContent = result.value;
+          })
+          .catch(error => {
+            console.error('Error al cargar CounterAPI:', error);
+            counterElement.textContent = 'Error de red';
+          });
+    });
+    </script>
 
     // 2. LÓGICA DEL MODO OSCURO (INTELIGENTE - SE OCULTA SOLO)
     const themeToggleBtn = document.getElementById('theme-toggle');
