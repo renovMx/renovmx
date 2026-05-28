@@ -608,43 +608,70 @@
         </div>
         <p>&copy; 2026 ReNov MX. Todos los derechos reservados.</p>
         
-        <!-- CONTADOR DE VISITANTES REDISEÑADO INTEGRADO AL FOOTER -->
+        <!-- ==========================================
+     BLOQUE REPARADO: CONTADOR + MODO OSCURO
+     ========================================== -->
+
+<!-- CONTADOR DE VISITANTES REDISEÑADO INTEGRADO AL FOOTER -->
         <div style="font-family: Arial, sans-serif; text-align: center; margin-top: 20px; font-size: 0.95rem; color: var(--gris-texto-claro);">
             <p><i class="fas fa-eye" style="margin-right: 8px; color: var(--enlace-color);"></i> Visitantes totales: <span id="visitor-count" style="font-weight: bold; color: var(--blanco);">Cargando...</span></p>
         </div>
     </footer>
+
+<!-- BOTÓN FLOTANTE MODO OSCURO -->
+<button class="theme-switch" id="theme-toggle" aria-label="Cambiar modo oscuro" style="position: fixed; bottom: 20px; right: 20px; background-color: var(--navy, #0A192F); color: var(--blanco, #ffffff); border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 2000; display: flex; align-items: center; justify-content: center;">
+    <i class="fas fa-moon" id="theme-icon"></i>
+</button>
     
-    <script>
-    // LLAMADA SEGURA AL SERVIDOR DE CONTEO ACTIVO (COUNTERAPI)
-    // Usamos tu nuevo Workspace limpio 'renovmx' y la API oficial
+<script>
+    // 1. LÓGICA DEL CONTADOR DE VISITAS
     const workspace = "renovmx";
     const counterName = "visitas-totales"; 
 
     console.log("Iniciando carga de CounterAPI...");
 
-    // CORRECCIÓN: Se añade el signo $ y la diagonal /
     fetch(`https://counterapi.dev{workspace}/${counterName}/up`)
         .then(response => {
-            console.log("Respuesta HTTP recibida:", response.status);
-            if (!response.ok) {
-                throw new Error(`Error en el servidor: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`Error: ${response.status}`);
             return response.json();
         })
         .then(data => {
-            console.log("Datos del servidor:", data);
-            // Lee 'value' que es la propiedad oficial donde CounterAPI devuelve el número
             const totalVisitas = data.value !== undefined ? data.value : (data.count || 0);
-            
-            // Asigna las visitas reales obtenidas de la base de datos
             document.getElementById('visitor-count').innerText = totalVisitas;
         })
         .catch(error => {
-            // Mensaje de respaldo por si falla la conexión de red externa
             document.getElementById('visitor-count').innerText = "Error de red";
             console.error('Error al cargar el contador:', error);
         });
-    </script>
+
+    // 2. LÓGICA DEL MODO OSCURO
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    // Revisar si el usuario ya tenía el modo oscuro activado antes
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme) {
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        if (currentTheme === 'dark') {
+            themeIcon.className = 'fas fa-sun';
+        }
+    }
+
+    // Escuchar el clic en el botón flotante para cambiar el color
+    themeToggleBtn.addEventListener('click', () => {
+        let theme = 'light';
+        if (document.documentElement.getAttribute('data-theme') !== 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.className = 'fas fa-sun';
+            theme = 'dark';
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+            themeIcon.className = 'fas fa-moon';
+        }
+        localStorage.setItem('theme', theme);
+    });
+</script>
+
         <!-- ENLACE Y ACTIVACIÓN DE LA APLICACIÓN MÓVIL (PWA) CORREGIDO -->
     <link rel="manifest" href="manifest.json">
     <script>
