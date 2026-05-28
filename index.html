@@ -628,26 +628,25 @@
 
 <script>
 
-    <div class="stats-container">
-  <p>This page has been viewed <span id="view-counter">...</span> times</p>
-</div>
+    // 1. LÓGICA DEL CONTADOR DE VISITAS
+    const workspace = "renovmx";
+    const counterName = "visitas-totales"; 
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const counter = new Counter({ workspace: 'renovmx' });
-    const counterElement = document.getElementById('view-counter');
-    
-    // Increment the view count and update the display
-    counter.up('page-views')
-      .then(result => {
-        counterElement.textContent = result.value;
-      })
-      .catch(error => {
-        console.error('Error tracking page view:', error);
-        counterElement.textContent = 'Error loading count';
-      });
-  });
-</script>
+    console.log("Iniciando carga de CounterAPI...");
+
+    fetch(`https://counterapi.dev{workspace}/${counterName}/up`)
+        .then(response => {
+            if (!response.ok) throw new Error(`Error: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            const totalVisitas = data.value !== undefined ? data.value : (data.count || 0);
+            document.getElementById('visitor-count').innerText = totalVisitas;
+        })
+        .catch(error => {
+            document.getElementById('visitor-count').innerText = "Error de red";
+            console.error('Error al cargar el contador:', error);
+        });
 
     // 2. LÓGICA DEL MODO OSCURO (INTELIGENTE - SE OCULTA SOLO)
     const themeToggleBtn = document.getElementById('theme-toggle');
