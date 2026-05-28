@@ -722,15 +722,14 @@
                 .catch(err => console.error('Error al registrar la app:', err));
         }
     </script>  
-   <!-- REPRODUCTOR DE JAZZ DESLIZABLE (100% OPERATIVO) -->
-<div id="contenedor-radio" style="position: fixed; bottom: 20px; left: 20px; background: #1a1a1a; color: #ffffff; padding: 12px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.6); z-index: 9999; font-family: system-ui, -apple-system, sans-serif; width: 230px; border: 1px solid #2a2a2a; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease; transform: translateY(0); opacity: 1;">
-    
+  <!-- REPRODUCTOR DE JAZZ INTELIGENTE CON BOTÓN REDONDO (SE OCULTA SOLO) -->
+<div id="contenedor-radio" style="position: fixed; bottom: 20px; left: 80px; background: #1a1a1a; color: #ffffff; padding: 12px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.6); z-index: 9999; font-family: system-ui, -apple-system, sans-serif; width: 230px; border: 1px solid #2a2a2a; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); transform: translateY(150%); opacity: 0; pointer-events: none;">
     <!-- Encabezado con título y botón de minimizar -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <span style="font-size: 12px; font-weight: 600; color: #ffb74d; display: flex; align-items: center; gap: 5px;">
             <span>🎷</span> Smooth Jazz
         </span>
-        <button onclick="ocultarRadio()" style="background: none; border: none; color: #888; cursor: pointer; font-size: 14px; padding: 0 4px; line-height: 1;">✕</button>
+        <button onclick="alternarRadio()" style="background: none; border: none; color: #888; cursor: pointer; font-size: 14px; padding: 0 4px; line-height: 1;">✕</button>
     </div>
     
     <!-- Controles de Audio nativos -->
@@ -739,37 +738,79 @@
     </audio>
 </div>
 
-<!-- Botón flotante para restaurar el reproductor -->
-<button id="btn-abrir-radio" onclick="mostrarRadio()" style="position: fixed; bottom: -60px; left: 20px; background: #1a1a1a; color: #ffb74d; border: 1px solid #2a2a2a; padding: 10px 14px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); z-index: 9998; font-family: system-ui, sans-serif; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); opacity: 0;">
-    <span>🎷</span> Música de fondo
+<!-- Botón flotante redondo inteligente del lado izquierdo -->
+<button id="btn-abrir-radio" style="position: fixed; bottom: 20px; left: 20px; z-index: 9998; background-color: #0b192f; color: #ffb74d; border: 1px solid #2a2a2a; display: flex; align-items: center; justify-content: center; height: 48px; width: 48px; padding: 0; border-radius: 50%; gap: 0; overflow: hidden; white-space: nowrap; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer;">
+    <div style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 0 14px; gap: 8px;">
+        <span style="font-size: 1.1rem; flex-shrink: 0;">🎷</span>
+        <span id="music-text" style="font-size: 0.85rem; font-family: sans-serif; opacity: 0; max-width: 0; transition: all 0.3s ease; color: #fff;">Música</span>
+    </div>
 </button>
 
 <script>
-    // Asigna volumen moderado automáticamente al cargar
+    // Configuración inicial del audio
     document.getElementById('radio-smooth-jazz').volume = 0.35;
 
     const contenedor = document.getElementById('contenedor-radio');
     const btnAbrir = document.getElementById('btn-abrir-radio');
+    const musicText = document.getElementById('music-text');
+    let musicHideTimeout;
+    let radioVisible = false;
 
-    function ocultarRadio() {
-        // Desplaza el contenedor principal hacia abajo (fuera de la pantalla) y baja su opacidad
-        contenedor.style.transform = 'translateY(150%)';
-        contenedor.style.opacity = '0';
-        
-        // Hace aparecer el botón flotante subiéndolo a su posición visible
-        btnAbrir.style.bottom = '20px';
-        btnAbrir.style.opacity = '1';
+    // Funciones para expandir y encoger el botón de forma animada
+    function expandMusicButton() {
+        clearTimeout(musicHideTimeout);
+        btnAbrir.style.borderRadius = "30px";
+        btnAbrir.style.width = "auto";
+        musicText.style.opacity = "1";
+        musicText.style.maxWidth = "100px";
     }
 
-    function mostrarRadio() {
-        // Regresa el contenedor principal a su lugar original
-        contenedor.style.transform = 'translateY(0)';
-        contenedor.style.opacity = '1';
-        
-        // Esconde de nuevo el botón flotante empujándolo hacia abajo
-        btnAbrir.style.bottom = '-60px';
-        btnAbrir.style.opacity = '0';
+    function collapseMusicButton() {
+        musicText.style.opacity = "0";
+        musicText.style.maxWidth = "0";
+        setTimeout(() => {
+            btnAbrir.style.width = "48px";
+            btnAbrir.style.borderRadius = "50%";
+        }, 150);
     }
+
+    function startMusicHideTimer() {
+        clearTimeout(musicHideTimeout);
+        musicHideTimeout = setTimeout(collapseMusicButton, 3000);
+    }
+
+    // Al cargar la página, el botón se muestra expandido 3 segundos y luego se encoge solo
+    expandMusicButton();
+    startMusicHideTimer();
+
+    // Eventos para expandir con el mouse o al tocar en el móvil
+    btnAbrir.addEventListener('mouseenter', expandMusicButton);
+    btnAbrir.addEventListener('mouseleave', startMusicHideTimer);
+    btnAbrir.addEventListener('touchstart', expandMusicButton);
+
+    // Función que abre y cierra el panel de música
+    function alternarRadio() {
+        if (!radioVisible) {
+            // Muestra el cuadro de música a un lado del botón
+            contenedor.style.transform = 'translateY(0)';
+            contenedor.style.opacity = '1';
+            contenedor.style.pointerEvents = 'auto';
+            radioVisible = true;
+        } else {
+            // Esconde el cuadro de música
+            contenedor.style.transform = 'translateY(150%)';
+            contenedor.style.opacity = '0';
+            contenedor.style.pointerEvents = 'none';
+            radioVisible = false;
+        }
+    }
+
+    // Vincular el clic del botón flotante para abrir el panel
+    btnAbrir.addEventListener('click', () => {
+        alternarRadio();
+        expandMusicButton();
+        startMusicHideTimer();
+    });
 </script>
 </body>
 </html>
