@@ -2,7 +2,7 @@
   "name": "ReNov MX Espacio Ciudadano",
   "short_name": "ReNov MX",
   "description": "Espacio Ciudadano para la Participación y la Cocreación",
-  "start_url": "https://renovmx.github.io/renovmx/",
+  "start_url": "/renovmx/",
   "display": "standalone",
   "background_color": "#0A192F",
   "theme_color": "#0A192F",
